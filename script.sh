@@ -52,7 +52,7 @@ echo "Has ganado"
 else 
 echo "Perdiste"
 fi
-
+ 
 echo "Adivina la suma de los números:"
 read adivinar_suma
 
