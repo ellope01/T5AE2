@@ -8,15 +8,15 @@ echo "2. Habrá 5 intentos, si se acierta superior a 3 intentos se gana y menos 
 echo "3. Habrá 20 piedras como máximo"
 
 read -p "¿Deseas jugar (S/N)?: " comienzo
-if [ $comienzo = 'S' ]
+while [ $comienzo=='S' ] || [ $comienzo=='N' ];
+do
+if [ $comienzo=='S' ]
     then
-        echo ""
-        jugar_de_nuevo=true
-
-while [$jugar_de_nuevo==true];
+    echo "Has aceptado jugar."
+    jugar=true
+while [ $jugar==true ];
 do 
-    echo " Introduce el número de jugadores (máximo 5): "
-    read jugadores
+    read -p " Introduce un número de jugadores (máximo 5): " jugadores
 
     if [ $jugadores -gt 5 ]; 
         then
@@ -24,59 +24,76 @@ do
             exit 1
     fi
 
-    echo "Introduce el número límite de piedras/(entre 1 y 20):"
-    read piedras
+    read -p "Introduce un número límite de piedras (mín. 1 / máx. 20): " piedras
 
-    if [$piedras -lt 1]||[$piedras -gt 20];
+    if [ $piedras -lt 1 ] || [ $piedras -gt 20 ];
         then 
-            echo "El número minimo debe ser entre 1 y 20"
+            echo "El número mínimo debe ser entre 1 y 20"
             exit 1
     fi
 
     sum=0
-    for((i=1;i<=$jugadores;i++));
+    for(( i=1; i<=$jugadores; i++ ));
     do 
-        random=$((RANDOM%limit +1))
-        numero_jugador[$i]=$random
+        random=$((RANDOM % $piedras +1))
+        numJugador[$i]=$random
         sum=$((sum + random))
     done
-done
 
 echo "Adivina los números individuales de los jugadores:"
 correcto=0
-for((i=1;i<=$jugadores;i++));
+for(( i=1; i<=$jugadores; i++ ));
 do
-    echo "Jugador $i:"
-    read adivinar 
-    if [$adivinar -eq ${numero_jugador[$i]}];
+    read -p "Jugador $i: " adivinar 
+    if [ $adivinar -eq ${numJugador[$i]} ];
         then
             correcto=$((correcto+1))
     fi
 done
 
-if [$correcto -gt $((jugadores%2))]; 
+if [ $correcto -gt $((jugadores%2)) ]; 
     then
-        echo "Has ganado"
+        echo "¡Felicidades has ganado!"
     else 
-        echo "Perdiste"
+        echo "Lo siento, has perdido."
 fi
  
-echo "Adivina la suma de los números:"
-read adivinar_suma
+read -p "Adivina la suma de los números:" adivinar_suma
 
-if [$adivinar_suma -eq $sum];
+if [ $adivinar_suma -eq $sum ];
     then
-        echo "Has ganado"
+        echo "¡Felicidades has ganado!"
     else 
-        echo "Has perdido"
+        echo "Lo siento, has perdido."
 fi
-echo "¿Quieres volver a jugar?(S/N):"
-read jugar_otra_vez
 
-if [$jugar_otra_vez == "S"];
-    then 
-        jugar_de_nuevo=true
-    else 
-        jugar_de_nuevo=false
-    echo "¡Gracias por jugar! Por favor, ejecuta el programa otra vez para volver a jugar." 
+
+read -p "¿Quieres volver a jugar?(S/N):" jugar_otra_vez
+
+# Bucle de volver a jugar.
+while [ $jugar_otra_vez=='S' ] || [ $jugar_otra_vez=='N' ];
+do
+ if [ $jugar_otra_vez=='S' ]
+    then
+    echo "Has aceptado volver a jugar."
+    $comienzo
+
+ elif [ $jugar_otra_vez=='N' ]
+    then
+    echo "No has aceptado volver a jugar. Vuelve pronto!"
+    exit
+ fi
+done
+    echo "Error, debes introducir (S / N). Gracias."
+    exit   
+
+done
+# Bucle de Fin y No de jugar.
+elif [ $comienzo=='N' ]
+then
+    echo "No has aceptado a jugar. Vuelve pronto!"
+    exit
 fi
+done
+    echo "Error, debes introducir (S / N). Gracias."
+    exit
