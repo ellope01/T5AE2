@@ -4,11 +4,12 @@
 echo "Bienvenido al juego de los puñitos."
 echo "==================================="
 
-echo "Comenzaremos con LAS NORMAS e INSTRUCCIONES:"
+echo "Menu:"
 echo "1. Se intentará descubrir el numero de piedras al menos de un jugador."
 echo "2. Habrá 2 intentos para adivinar."
-echo "3. Habrá 20 piedras como máximo"
-
+echo "3. Habrá 20 piedras como máximo."
+echo "4. Se puede elegir un máximo de 5 jugadores."
+echo "==================================="
 # Entrada al juego.
 read -p "¿Deseas jugar (S/N)?: " comienzo
 
@@ -21,7 +22,7 @@ if [ $comienzo == 'S' ]
 
 while [ $jugar == true ];
 do 
-    read -p " Introduce un número de jugadores (máximo 5): " jugadores
+    read -p "Introduce un número de jugadores (máximo 5): " jugadores
 
     if [ $jugadores -gt 5 ]; 
         then
@@ -44,7 +45,9 @@ do
         numJugador[$i]=$random
         sum=$((sum + random))
     done
-
+echo "================"
+echo " Primer Intento "
+echo "================"
 echo "Adivina los números individuales de los jugadores: "
 correcto=0
 
@@ -63,7 +66,9 @@ if [ $correcto -gt $((jugadores % 2)) ];
     else 
         echo "Lo siento, has perdido."
 fi
-
+echo "================="
+echo " Segundo Intento "
+echo "================="
 read -p "Adivina la suma de los números: " adivinar_suma
 
 if [ $adivinar_suma -eq $sum ];
