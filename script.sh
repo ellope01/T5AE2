@@ -61,7 +61,7 @@ if [ $correcto -gt $((jugadores % 2)) ];
     then
         echo "¡Felicidades has ganado!"
     else 
-        echo "Lo siento, has perdido, no has adivinado las piedras de los jugadores."
+        echo "Lo siento, has perdido."
 fi
 
 read -p "Adivina la suma de los números: " adivinar_suma
@@ -70,7 +70,7 @@ if [ $adivinar_suma -eq $sum ];
     then
         echo "¡Felicidades! Has acertado la suma de los números."
     else 
-        echo "Lo siento, has perdido, no has adivinado la suma de los números."
+        echo "Lo siento, has perdido en el segundo intento."
 fi
 
 
