@@ -59,7 +59,7 @@ do
         echo "¡Felicidades has ganado!"
     else 
         echo "Lo siento, has perdido."
-    fi
+    fi 
 
 read -p "¿Quieres volver a jugar?(S/N):" comienzo
 
